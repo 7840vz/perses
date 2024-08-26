@@ -3,10 +3,12 @@
 if #target.datasource != _|_ if #target.datasource.type != _|_ if #target.datasource.type == "prometheus" && #target.expr != _|_ {
 	kind: "PrometheusTimeSeriesQuery"
 	spec: {
-		datasource: {
-			kind: "PrometheusDatasource"
-			name: #target.datasource.uid
-		}
+		// if #target.datasource.uid !~ "\\$\\{.+\\}" {
+		// 	datasource: {
+		// 		kind: "PrometheusDatasource"
+		// 		name: #target.datasource.uid
+		// 	}
+		// }
 		query: #target.expr
 		if #target.legendFormat != _|_ if #target.legendFormat != "__auto" {
 			seriesNameFormat: #target.legendFormat
@@ -22,12 +24,12 @@ if #target.datasource != _|_ if #target.datasource.type != _|_ if #target.dataso
 if #target.expr != _|_ {
 	kind: "PrometheusTimeSeriesQuery"
 	spec: {
-		if #target.datasource != _|_ {
-			datasource: {
-				kind: "PrometheusDatasource"
-				name: #target.datasource.uid
-			}
-		}
+		// if #target.datasource != _|_ if #target.datasource.uid !~ "\\$\\{.+\\}" {
+		// 	datasource: {
+		// 		kind: "PrometheusDatasource"
+		// 		name: #target.datasource.uid
+		// 	}
+		// }
 		query: #target.expr
 		if #target.legendFormat != _|_ if #target.legendFormat != "__auto" {
 			seriesNameFormat: #target.legendFormat
